@@ -1,0 +1,34 @@
+/* Header styling */
+.header {
+    background-color: #333; /* Dark background */
+    padding: 15px 20px;
+    position: fixed; /* Sticks to the top */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full width, ensuring it spans the entire screen */
+    z-index: 1000;
+    box-sizing: border-box; /* Ensures padding doesn’t affect width */
+
+}
+
+/* Flexbox container to position buttons */
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* Pushes Home to left, Login to right */
+    align-items: center;
+    width: 100%; /* Full width */
+}
+
+/* Style for both buttons */
+.home_button a, .login_button a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+/* Hover effect */
+.home_button a:hover, .login_button a:hover {
+    background-color: #555;
+}

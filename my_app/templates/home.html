@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/style.css' %}"
+
+{% block title %}Homepage{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to My Django App</h1>
+
+    <div  class="messages">
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+    <script>   
+        setTimeout(() => {
+            const messageList = document.querySelector('.messages');
+            if (messageList) {
+                messageList.remove();
+                }
+        }, 2000); 
+    </script>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <label>Username:</label>
+        <input type="text" name="username" required>
+        <br>
+        <label>Password:</label>
+        <input type="password" name="password" required>
+        <br>
+        <button type="submit">Login</button>
+        <br>
+    </form>
+
+    <form action="{% url 'register' %}">
+        <button type="submit">Create Account</button>
+    </form>
+
+    <a href="{% url 'password_reset' %}"><button>Forgot Password?</button></a>
+{% endblock %}
