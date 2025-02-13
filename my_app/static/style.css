@@ -30,12 +30,14 @@ label {
 
 input[type="text"],
 input[type="password"] {
-    width: 100%;
-    padding: 8px;
+    width: calc(100% - 20px); /* Reduce width to account for padding */
+    padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
+    
 
 /* Buttons */
 button {
@@ -56,7 +58,7 @@ button:hover {
 /* Links styled as buttons */
 a button {
     background-color: #28a745;
-    width: 100%;
+    
 }
 
 a button:hover {
@@ -67,4 +69,30 @@ a button:hover {
 p {
     color: red;
     font-size: 14px;
+}
+/* 
+.create {
+    position: relative;
+    align-items: center;
+} */
+
+.create {
+    display: flex;
+    justify-content: center;  /* Center the buttons horizontally */
+    gap: 10px; /* Add space between buttons */
+    margin-top: 10px; /* Add some space above the buttons */
+}
+
+.create a button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #12db55;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.create a button:hover {
+    background-color: #30ffa9;
 }

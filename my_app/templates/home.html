@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Welcome to My Django App</h1>
+    <h1>Welcome to Test-Case Dashboard</h1>
 
     <div  class="messages">
         {% if messages %}
@@ -40,9 +40,8 @@
         <br>
     </form>
 
-    <form action="{% url 'register' %}">
-        <button type="submit">Create Account</button>
-    </form>
-
-    <a href="{% url 'password_reset' %}"><button>Forgot Password?</button></a>
-{% endblock %}
+    <div class="create">
+        <a href="{% url 'register' %}"><button type="submit">Create Account</button></a>
+        <a href="{% url 'password_reset' %}"><button>Forgot Password?</button></a> 
+    </div>
+    {% endblock %}
