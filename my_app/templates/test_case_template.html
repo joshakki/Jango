@@ -1,20 +1,194 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Case</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-    <h2>Test Case Details</h2>
-    {% if test_case %}
-        <p>{{ test_case.content }}</p>
-    {% else %}
-        <p>No test case found for this selection.</p>
-    {% endif %}
+{% block title %}Test Case Dashboard{% endblock %}
 
-    <a href="/homepage">Back</a>
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<h1 class="test-case-title">Test Case Dashboard</h1>
+
+<!-- Dropdowns for filtering -->
+<div id="filter-container" class="test-case-filter-container">
+    <label for="domain" class="test-case-label">Select Domain:</label>
+    <select id="domain" name="domain" class="test-case-select" onchange="filterModules()">
+        <option value="">All Domains</option>
+        {% for domain in domains %}
+            <option value="{{ domain.id }}">{{ domain.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="module" class="test-case-label">Select Module:</label>
+    <select id="module" name="module" class="test-case-select" onchange="filterTestCases()">
+        <option value="">All Modules</option>
+    </select>
+</div>
+
+<!-- Add New Test Case Form -->
+
+<div id="add-test-case-form">
+    <h3>Add New Test Case</h3>
+    <form method="POST" id="testCaseForm">
+        {% csrf_token %}
+
+        <label for="domain">Select Domain:</label>
+        <select id="domain" name="domain" class="test-case-select" onchange="loadModules()">
+            <option value="">All Domains</option>
+            {% for domain in domains %}
+                <option value="{{ domain.id }}" {% if domain.id|stringformat:"s" == selected_domain_id %}selected{% endif %}>
+                    {{ domain.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="module">Select Module:</label>
+        <select id="module" name="module" class="test-case-select">
+            <option value="">All Modules</option>
+            {% for module in modules %}
+                <option value="{{ module.id }}" {% if module.id|stringformat:"s" == selected_module_id %}selected{% endif %}>
+                    {{ module.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="test-case-name">Test Case Name:</label>
+        <input type="text" name="name" id="test-case-name" required>
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" required></textarea>
+
+        <button type="submit">Add Test Case</button>
+    </form>
+</div>
+
+
+<!-- Display Test Cases -->
+<div id="test-case-dashboard">
+    <table class="test-case-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Test Case Name</th>
+                <th>Description</th>
+                <th>Domain</th>
+                <th>Module</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="testCaseList">
+            {% if test_cases %}
+                {% for test_case in test_cases %}
+                <tr>
+                    <td>{{ test_case.id }}</td>
+                    <td>{{ test_case.name }}</td>
+                    <td>{{ test_case.description }}</td>
+                    <td>{{ test_case.module.domain.name }}</td>
+                    <td>{{ test_case.module.name }}</td>
+                    <td>
+                        <a href="{% url 'edit_test_case' test_case.id %}" class="test-case-edit-btn">Edit</a>
+                        <a href="{% url 'delete_test_case' test_case.id %}" class="test-case-delete-btn">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center; color: #888;">No test cases available for the selected domain and module.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+<!-- JavaScript for Dynamic Filtering and Adding Test Cases -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("domain").addEventListener("change", filterModules);
+        document.getElementById("module").addEventListener("change", filterTestCases);
+        document.getElementById("form-domain").addEventListener("change", loadModulesForForm);
+        document.getElementById("testCaseForm").addEventListener("submit", addTestCase);
+    });
+
+    // Function to filter modules based on selected domain
+    function filterModules() {
+        var domainId = document.getElementById("domain").value;
+        var moduleDropdown = document.getElementById("module");
+
+        moduleDropdown.innerHTML = '<option value="">All Modules</option>';
+
+        if (!domainId) {
+            filterTestCases();
+            return;
+        }
+
+        fetch(`/get-modules/?domain_id=${domainId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(module => {
+                    var option = document.createElement("option");
+                    option.value = module.id;
+                    option.textContent = module.name;
+                    moduleDropdown.appendChild(option);
+                });
+                filterTestCases();
+            })
+            .catch(error => console.error("Error fetching modules:", error));
+    }
+
+    // Function to load modules for the add test case form
+    
+    function loadModules() {
+        var domainId = document.getElementById("domain").value;
+        var moduleDropdown = document.getElementById("module");
+
+        moduleDropdown.innerHTML = '<option value="">Select Module</option>';
+
+        if (!domainId) return;
+
+        fetch(`/get-modules/?domain_id=${domainId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(module => {
+                    var option = document.createElement("option");
+                    option.value = module.id;
+                    option.textContent = module.name;
+                    if (module.id == "{{ selected_module_id }}") {
+                        option.selected = true; 
+                    }
+                    moduleDropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error("Error fetching modules:", error));
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        loadModules(); // Load modules on page load based on selected domain
+    });
+
+    // Function to add a test case dynamically
+    function addTestCase(event) {
+        event.preventDefault();
+
+        var form = document.getElementById("testCaseForm");
+        var formData = new FormData(form);
+
+        fetch('/add-test-case/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Refresh page or update test case list dynamically
+                location.reload();
+            } else {
+                alert("Failed to add test case.");
+            }
+        })
+        .catch(error => console.error("Error adding test case:", error));
+    }
+</script>
+
+{% endblock %}

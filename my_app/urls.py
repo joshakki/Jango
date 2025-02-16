@@ -4,7 +4,8 @@ from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import get_modules, test_case_view, add_domain, add_module
+from .views import get_modules, test_case_view, add_domain, add_module,test_case_dashboard, edit_test_case, delete_test_case, get_modules
+
 
 urlpatterns = [
     path("", home , name ='home'),
@@ -20,6 +21,10 @@ urlpatterns = [
     path('<int:domain_id>/<int:module_id>/', test_case_view, name='test_case'),
     path('add-domain/', add_domain, name='add_domain'),
     path('add-module/', add_module, name='add_module'),
+    path('test-cases/', test_case_dashboard, name='test_case_dashboard'),
+    path('edit-test-case/<int:test_case_id>/', edit_test_case, name='edit_test_case'),
+    path('delete-test-case/<int:test_case_id>/', delete_test_case, name='delete_test_case'),
+    path('get-modules/', get_modules, name='get_modules'),
 
 
 

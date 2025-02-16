@@ -295,3 +295,61 @@ h1 {
         width: 95%;
     }
 }
+
+.test-case-filter-container {
+    margin-bottom: 20px;
+}
+
+.test-case-label {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.test-case-select {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+/* Test Case Table */
+.test-case-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+}
+
+.test-case-table th, .test-case-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Action Buttons */
+.test-case-edit-btn, .test-case-delete-btn {
+    padding: 5px 10px;
+    margin: 2px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.test-case-edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.test-case-delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.test-case-edit-btn:hover, .test-case-delete-btn:hover {
+    opacity: 0.8;
+}
+
+/* Empty State */
+.test-case-empty-state {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+}
