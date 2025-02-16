@@ -1,6 +1,6 @@
 version: '3.8'
 
-ssssssss:
+services:
   mysql:
     image: mysql:8.0  # Use the latest MySQL version or specify a different one
     container_name: mysql
