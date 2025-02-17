@@ -1,25 +1,20 @@
-version: '3.8'
 
-ssssssss:
-  mysql:
-    image: mysql:8.0  # Use the latest MySQL version or specify a different one
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: Akshay@123
-      MYSQL_DATABASE: django
-      MYSQL_USER: akshay
-      MYSQL_PASSWORD: Akshay@123
-    ports:
-      - "3306:3306"
+
+services:
+  web:
+    build: .
+    command: ["gunicorn", "your_project_name.wsgi:application", "--bind", "0.0.0.0:8000"]
     volumes:
-      - mysql_data:/var/lib/mysql
+      - .:/app
+    ports:
+      - "8000:8000"
     networks:
-      - django_network
+      - backend
 
 volumes:
-  mysql_data:
+  postgres_data:
 
 networks:
-  django_network:
+  backend:
+    driver: bridge
 
