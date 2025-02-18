@@ -6,8 +6,8 @@ body {
     padding: 50px;
 }
 
-/* Container for the form */
-form {
+/* Container for the main form */
+.template-form {
     background: white;
     width: 300px;
     padding: 20px;
@@ -22,14 +22,14 @@ h1 {
 }
 
 /* Labels and Inputs */
-label {
+.template-form label {
     display: block;
     margin: 10px 0 5px;
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="password"] {
+.template-form input[type="text"],
+.template-form input[type="password"] {
     width: calc(100% - 20px); /* Reduce width to account for padding */
     padding: 10px;
     margin-bottom: 10px;
@@ -37,10 +37,9 @@ input[type="password"] {
     border-radius: 5px;
     box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
-    
 
-/* Buttons */
-button {
+/* Buttons inside form */
+.template-form button {
     background-color: #007bff;
     color: white;
     padding: 10px;
@@ -51,34 +50,29 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
+.template-form button:hover {
     background-color: #0056b3;
 }
 
 /* Links styled as buttons */
-a button {
+.template-form a button {
     background-color: #28a745;
-    
 }
 
-a button:hover {
+.template-form a button:hover {
     background-color: #218838;
 }
 
 /* Error Messages */
-p {
+.template-form p {
     color: red;
     font-size: 14px;
 }
-/* 
-.create {
-    position: relative;
-    align-items: center;
-} */
 
+/* Create button container */
 .create {
     display: flex;
-    justify-content: center;  /* Center the buttons horizontally */
+    justify-content: center; /* Center the buttons horizontally */
     gap: 10px; /* Add space between buttons */
     margin-top: 10px; /* Add some space above the buttons */
 }
@@ -95,4 +89,209 @@ p {
 
 .create a button:hover {
     background-color: #30ffa9;
+}
+
+
+/* General Styles */
+.dashboard-body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Main Container */
+.dashboard-container {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+.dashboard-title {
+    color: #333;
+    font-size: 24px;
+}
+
+.dashboard-subtitle {
+    color: #007bff;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+.dashboard-label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Dropdowns */
+.dashboard-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    font-size: 16px;
+}
+
+/* Buttons */
+.dashboard-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.dashboard-button:hover {
+    background-color: #0056b3;
+}
+
+/* Form Container */
+.dashboard-form {
+    background: #fff;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Fields */
+.dashboard-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Add Domain & Add Module Buttons */
+.dashboard-button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.dashboard-button-group .dashboard-button {
+    flex: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .dashboard-container {
+        width: 95%;
+    }
+}
+
+/* General Styles */
+.login-body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 40px;
+}
+
+/* Container */
+.login-container {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.login-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Messages */
+.login-messages {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Labels */
+.login-label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+/* Input Fields */
+.login-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Buttons */
+.login-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* Create Account and Forgot Password */
+.login-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.login-actions a button {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.login-actions a button:hover {
+    background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .login-container {
+        width: 95%;
+    }
 }

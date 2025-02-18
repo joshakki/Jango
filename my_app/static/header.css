@@ -1,34 +1,97 @@
-/* Header styling */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Sticky Header */
 .header {
-    background-color: #333; /* Dark background */
-    padding: 15px 20px;
-    position: fixed; /* Sticks to the top */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Full width, ensuring it spans the entire screen */
+    width: 100%;
+    background-color: #1900fd;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    box-sizing: border-box; /* Ensures padding doesn’t affect width */
-
 }
 
-/* Flexbox container to position buttons */
+/* Navigation Container */
 .nav-container {
     display: flex;
-    justify-content: space-between; /* Pushes Home to left, Login to right */
+    justify-content: space-between;
     align-items: center;
-    width: 100%; /* Full width */
+    width: 100%;
 }
 
-/* Style for both buttons */
-.home_button a, .login_button a {
+/* Home Button */
+.home_button a {
     color: white;
     text-decoration: none;
     font-size: 18px;
-    padding: 10px 15px;
+    font-weight: bold;
+    padding: 8px 15px;
     border-radius: 5px;
+    transition: opacity 0.3s ease;
 }
 
-/* Hover effect */
-.home_button a:hover, .login_button a:hover {
-    background-color: #555;
+.home_button a:hover {
+    opacity: 0.8;
+}
+
+/* HEADER-SPECIFIC LOGOUT FORM */
+.header .logoutform {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+/* HEADER-SPECIFIC LOGOUT BUTTON */
+.header .logoutform button {
+    background: rgb(0, 4, 255);
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0px 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+.header .logoutform button:hover {
+    background: rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
+}
+
+/* Adjust Content to Avoid Overlapping */
+main {
+    margin-top: 60px; /* Adjust this based on the header height */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .header .logoutform {
+        top: 8px;
+        right: 15px;
+    }
+
+    .home_button {
+        margin-bottom: 0;
+    }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Case</title>
+</head>
+<body>
+
+    <h2>Test Case Details</h2>
+    {% if test_case %}
+        <p>{{ test_case.content }}</p>
+    {% else %}
+        <p>No test case found for this selection.</p>
+    {% endif %}
+
+    <a href="/homepage">Back</a>
+
+</body>
+</html>

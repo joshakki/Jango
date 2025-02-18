@@ -89,8 +89,8 @@ LOGIN_URL = '/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
-        'USER': 'akshay',
+        'NAME': 'TUSH',
+        'USER': 'root',
         'PASSWORD': 'Akshay@123',
         'HOST': 'db',
         'PORT': '3306',

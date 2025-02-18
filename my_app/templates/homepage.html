@@ -9,7 +9,78 @@
 {% endblock %}
 
 {% block content %}
-<h1>Welcome, {{ user.username }}!</h1>   
+  
+<script>
+    function loadModules() {
+        var domainId = document.getElementById("domain").value;
+        var moduleDropdown = document.getElementById("module");
+        moduleDropdown.innerHTML = '<option value="">Select Module</option>';
+
+        if (domainId) {
+            fetch(`/get-modules/?domain_id=${domainId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(module => {
+                    var option = document.createElement("option");
+                    option.value = module.id;
+                    option.textContent = module.name;
+                    moduleDropdown.appendChild(option);
+                });
+            });
+        }
+    }
+
+    function submitForm() {
+        var domainId = document.getElementById("domain").value;
+        var moduleId = document.getElementById("module").value;
+
+        if (domainId && moduleId) {
+            window.location.href = `/${domainId}/${moduleId}/`;
+        } else {
+            alert("Please select both domain and module.");
+        }
+    }
+</script>
+
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Welcome, {{ user.username }}!</h1>
+    <h2 class="dashboard-subtitle">Select Test Case</h2>
+
+    <div class="dashboard-form">
+        <label class="dashboard-label" for="domain">Choose Domain:</label>
+        <select class="dashboard-select" id="domain" name="domain" onchange="loadModules()">
+            <option value="">Select Domain</option>
+            {% for domain in domains %}
+                <option value="{{ domain.id }}">{{ domain.name }}</option>
+            {% endfor %}
+        </select>   
+
+        <label class="dashboard-label" for="module">Choose Module:</label>
+        <select class="dashboard-select" id="module" name="module">
+            <option value="">Select Module</option>
+        </select>
+
+        <button class="dashboard-button" onclick="submitForm()">Go</button>
+    </div>
+
+    <form class="dashboard-form" action="{% url 'add_domain' %}" method="post">
+        {% csrf_token %}
+        <input class="dashboard-input" type="text" name="domain_name" placeholder="Enter new domain" required>
+        <button class="dashboard-button" type="submit">Add Domain</button>
+    </form>
+
+    <form class="dashboard-form" action="{% url 'add_module' %}" method="post">
+        {% csrf_token %}
+        <select class="dashboard-select" name="domain_id" required>
+            <option value="">Select Domain</option>
+            {% for domain in domains %}
+                <option value="{{ domain.id }}">{{ domain.name }}</option>
+            {% endfor %}
+        </select>
+        <input class="dashboard-input" type="text" name="module_name" placeholder="Enter new module" required>
+        <button class="dashboard-button" type="submit">Add Module</button>
+    </form>
+</div>
     {% endblock %}
 
 
