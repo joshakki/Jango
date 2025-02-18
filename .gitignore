@@ -1,0 +1,39 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite3
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+
+# If you use media files, ignore them as well:
+media/
+
+# If you are using virtualenv or venv:
+venv/
+env/
+.venv/
+.ENV/
+
+# PyCharm project files:
+.idea/
+
+# VS Code settings
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# JetBrains IDE files
+*.iml
