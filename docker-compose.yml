@@ -1,6 +1,19 @@
-version: '3.8'
+
 
 services:
+  db:
+    image: mysql:8.0  
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Akshay@123
+      MYSQL_DATABASE: django
+      MYSQL_USER: akshay
+      MYSQL_PASSWORD: Akshay@123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
   web:
     build: .
     container_name: django_app
@@ -13,19 +26,7 @@ services:
     depends_on:
       - db
 
-  db:
-    image: mysql:8.0  # You can change to PostgreSQL if needed
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: Akshay@123
-      MYSQL_DATABASE: django
-      MYSQL_USER: akshay
-      MYSQL_PASSWORD: mypassword
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+
 
 volumes:
   mysql_data:
